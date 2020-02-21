@@ -30,6 +30,7 @@ export const FormikForm = withFormik({
   },
   handleSubmit(values, { resetForm, props }) {
     console.log(props);
+    console.log(values);
     props.postData(values);
     resetForm();
   }
