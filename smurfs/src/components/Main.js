@@ -1,9 +1,7 @@
 import React from "react";
-//import redux stuff
-import { connect } from "react-redux";
-import { getData } from "../actions";
 
 const Main = props => {
+  console.log(props);
   const handleGetData = e => {
     e.preventDefault();
     props.getData();
@@ -21,11 +19,5 @@ const Main = props => {
     </div>
   );
 };
-const MSTP = state => {
-  console.log(state);
-  return {
-    smurfs: state.smurfs
-  };
-};
 
-export default connect(MSTP, { getData })(Main);
+export default Main;

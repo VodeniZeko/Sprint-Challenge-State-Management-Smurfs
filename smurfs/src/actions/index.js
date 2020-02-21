@@ -12,7 +12,7 @@ export const getData = () => dispatch => {
   axios
     .get("http://localhost:3333/smurfs")
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({ type: GET_SMURF, payload: res.data });
     })
     .catch(err => {
@@ -20,15 +20,15 @@ export const getData = () => dispatch => {
     });
 };
 
-export const postData = () => dispatch => {
+export const postData = newSmurf => dispatch => {
   dispatch({ type: POST_SMURF });
 
   //just because we want to se a spinner
   axios
-    .post("http://localhost:3333/smurfs")
+    .post("http://localhost:3333/smurfs", newSmurf)
     .then(res => {
-      console.log(res);
-      dispatch({ type: GET_SMURF, payload: res.data });
+      console.log("posting", res);
+      dispatch({ type: POST_SMURF, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: SET_ERROR, payload: "something went wrong" });

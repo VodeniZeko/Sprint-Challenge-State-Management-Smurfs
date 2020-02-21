@@ -1,12 +1,16 @@
 import React from "react";
 import Main from "./Main";
-import Form from "../formik/Form";
-
+//redux
+import { connect } from "react-redux";
+import { getData } from "../actions";
+import { postData } from "../actions";
+import { FormikForm } from "../formik/Form";
 //import router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
 const App = props => {
+  console.log(props);
   return (
     <Router>
       <div>
@@ -21,16 +25,22 @@ const App = props => {
           </ul>
         </nav>
         <Switch>
-          <Route path="/add-smurfs">
-            <Form />
+          <Route exact path="/">
+            <Main getData={props.getData} smurfs={props.smurfs} />
           </Route>
-          <Route path="/">
-            <Main />
+          <Route path="/add-smurfs">
+            <FormikForm postData={props.postData} />
           </Route>
         </Switch>
       </div>
     </Router>
   );
 };
+const MSTP = state => {
+  console.log(state);
+  return {
+    smurfs: state.smurfs
+  };
+};
 
-export default App;
+export default connect(MSTP, { getData, postData })(App);
