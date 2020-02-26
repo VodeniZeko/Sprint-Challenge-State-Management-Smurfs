@@ -1,16 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
+import Main from "./Main";
+//redux
+import { connect } from "react-redux";
+import { postData } from "../actions";
+import { FormikForm } from "../formik/Form";
+//import router
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your state management version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
-      </div>
-    );
-  }
-}
 
-export default App;
+const App = props => {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">See smurfs</Link>
+            </li>
+            <li>
+              <Link to="/add-smurfs">Add smurfs</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/add-smurfs">
+            <FormikForm postData={props.postData} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+};
+const MSTP = state => {
+  // console.log(state);
+  return {
+    smurfs: state.smurfs
+  };
+};
+
+export default connect(MSTP, { postData })(App);
